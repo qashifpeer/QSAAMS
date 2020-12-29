@@ -36,6 +36,7 @@ public class Register extends AppCompatActivity {
 
 
 
+
         udise = findViewById(R.id.registerUdise);
         email = findViewById(R.id.registerEmail);
         password = findViewById(R.id.registerPassword);
