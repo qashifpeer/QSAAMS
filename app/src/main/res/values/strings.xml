@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">QSAAM</string>
+    <string name="submit">Submit</string>
+    <string-array name="items_class">
+        <item>IST</item>
+        <item>2nd</item>
+        <item>3rd</item>
+        <item>4th</item>
+        <item>5th</item>
+        <item>6th</item>
+        <item>7th</item>
+        <item>8th</item>
+
+    </string-array>
+
+
+</resources>

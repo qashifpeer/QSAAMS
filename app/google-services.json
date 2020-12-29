@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "372314673431",
+    "project_id": "qsam-85011",
+    "storage_bucket": "qsam-85011.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:372314673431:android:b3922b69ffee0d61042752",
+        "android_client_info": {
+          "package_name": "com.zeomawer.qsams"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "372314673431-dfkph6fg0vlph6vnl0tjlefvjqia8va8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwpHLGBJpQ1P--iAIgLtZxzWxnT3j7oCU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "372314673431-dfkph6fg0vlph6vnl0tjlefvjqia8va8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
