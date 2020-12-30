@@ -9,13 +9,15 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity {
-
+public class UserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Button logout=findViewById(R.id.btnLogoutMain);
+        setContentView(R.layout.activity_user);
+        Button logout=findViewById(R.id.btnLogoutUser);
+
+
+
 
 
         logout.setOnClickListener(new View.OnClickListener() {
@@ -26,8 +28,5 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
-
     }
 }
