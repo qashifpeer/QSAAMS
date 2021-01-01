@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Enter Email"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             android:textSize="22sp" />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
@@ -57,12 +57,12 @@
         >
 
         <EditText
-            android:id="@+id/registerPhone"
+            android:id="@+id/registerSchool"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Enter Phone No"
-            android:inputType="phone"
+            android:hint="School Name"
+            android:inputType="text"
             android:textSize="22sp" />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout

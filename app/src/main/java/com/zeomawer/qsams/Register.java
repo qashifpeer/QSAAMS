@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Register extends AppCompatActivity {
-    EditText udise,email,password,phone;
+    EditText udise,email,password,school;
     Button registerBtn,goToLogin;
     boolean valid = true;
     FirebaseAuth fAuth;
@@ -39,8 +39,8 @@ public class Register extends AppCompatActivity {
 
         udise = findViewById(R.id.registerUdise);
         email = findViewById(R.id.registerEmail);
+        school=findViewById(R.id.registerSchool);
         password = findViewById(R.id.registerPassword);
-        phone = findViewById(R.id.registerPhone);
         registerBtn = findViewById(R.id.registerBtn);
         goToLogin=findViewById(R.id.goToLogin);
 
@@ -52,8 +52,9 @@ public class Register extends AppCompatActivity {
 
                 checkField(udise);
                 checkField(email);
+                checkField(school);
                 checkField(password);
-                boolean b = checkField(phone);
+                //boolean b = checkField(phone);
 
 
 
@@ -66,12 +67,14 @@ public class Register extends AppCompatActivity {
                         @Override
                         public void onSuccess(AuthResult authResult) {
                             FirebaseUser user=fAuth.getCurrentUser();
+
                             Toast.makeText(Register.this,"Account Created",Toast.LENGTH_SHORT).show();
+
                             DocumentReference df=fStore.collection("Users").document(user.getUid());
                             Map<String,Object>userInfo=new HashMap<>();
                             userInfo.put("udise",udise.getText().toString());
                             userInfo.put("email",email.getText().toString());
-                            userInfo.put("phone",phone.getText().toString());
+                            userInfo.put("school",school.getText().toString());
                             //specify if user is admin
                             userInfo.put("isUser","1");
 
