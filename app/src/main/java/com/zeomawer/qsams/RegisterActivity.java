@@ -21,7 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Register extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
     EditText udise,email,password,school;
     Button registerBtn,goToLogin;
     boolean valid = true;
@@ -68,7 +68,7 @@ public class Register extends AppCompatActivity {
                         public void onSuccess(AuthResult authResult) {
                             FirebaseUser user=fAuth.getCurrentUser();
 
-                            Toast.makeText(Register.this,"Account Created",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this,"Account Created",Toast.LENGTH_SHORT).show();
 
                             DocumentReference df=fStore.collection("Users").document(user.getUid());
                             Map<String,Object>userInfo=new HashMap<>();
@@ -87,7 +87,7 @@ public class Register extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(Register.this, "Failed To Register", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, "Failed To RegisterActivity", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -98,7 +98,7 @@ public class Register extends AppCompatActivity {
         goToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Login.class));
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
 
             }
         });

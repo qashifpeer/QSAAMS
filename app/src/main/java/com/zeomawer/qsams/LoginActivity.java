@@ -13,14 +13,13 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     EditText email,password;
     Button goToRegister,loginBtn;
     boolean valid = true;
@@ -51,7 +50,7 @@ public class Login extends AppCompatActivity {
                     fAuth.signInWithEmailAndPassword(email.getText().toString(),password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
-                            Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "LoginActivity Successful", Toast.LENGTH_SHORT).show();
                             checkUserAccess(authResult.getUser().getUid());
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -70,7 +69,7 @@ public class Login extends AppCompatActivity {
              @Override
              public void onClick(View v) {
 
-                 startActivity(new Intent(getApplicationContext(),Register.class));
+                 startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
              }
          });
     }
@@ -112,7 +111,7 @@ public class Login extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if(FirebaseAuth.getInstance().getCurrentUser()!=null){
-            startActivity(new Intent(getApplicationContext(),Login.class));
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             finish();
         }
     }
