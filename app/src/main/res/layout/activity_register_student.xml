@@ -5,7 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@color/background"
     tools:context=".RegisterStudentActivity">
+
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -22,16 +34,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Enter Ad Num"
+            android:hint="Enter Admission Number"
             android:inputType="number"
-            android:textSize="22sp" />
+            android:textSize="22sp"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textColor="@color/purple_700"/>
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusable="true"
         android:focusableInTouchMode="true"
-
         android:layout_marginTop="7dp"
         >
 
@@ -40,10 +54,104 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Enter Name"
-            android:inputType="number"
-            android:textSize="22sp" />
+            android:hint="Student Name"
+            android:inputType="text"
+            android:textSize="18sp"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textColor="@color/purple_700" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+
+        android:layout_marginTop="5dp"
+        >
+
+        <EditText
+            android:id="@+id/fatherName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Father's Name"
+            android:inputType="text"
+            android:textSize="18sp"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textColor="@color/purple_700" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+
+        android:layout_marginTop="5dp"
+        >
+
+        <EditText
+            android:id="@+id/motherName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Mother's Name"
+            android:inputType="text"
+            android:textSize="18sp"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textColor="@color/purple_700" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+
+        android:layout_marginTop="5dp"
+        >
+
+        <EditText
+            android:id="@+id/residence"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Residence"
+            android:inputType="text"
+            android:textSize="18sp"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textColor="@color/purple_700"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+
+        android:layout_marginTop="5dp"
+        >
+
+        <EditText
+            android:id="@+id/uid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Aadhar"
+            android:inputType="number"
+            android:textColor="@color/purple_700"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+</LinearLayout>
+</androidx.cardview.widget.CardView>
+
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

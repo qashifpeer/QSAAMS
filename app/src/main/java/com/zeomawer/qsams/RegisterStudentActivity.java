@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterStudentActivity extends AppCompatActivity {
-EditText t1,t2;
+EditText adNum,name,fatherName,motherName,residence,uid;
  Button b1;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
@@ -29,8 +29,12 @@ EditText t1,t2;
         fAuth=FirebaseAuth.getInstance();
         fStore=FirebaseFirestore.getInstance();
 
-        t1=findViewById(R.id.adNum);
-        t2=findViewById(R.id.sName);
+        adNum=findViewById(R.id.adNum);
+        name=findViewById(R.id.sName);
+        fatherName=findViewById(R.id.fatherName);
+        motherName=findViewById(R.id.motherName);
+        residence=findViewById(R.id.residence);
+        uid=findViewById(R.id.uid);
         b1=findViewById(R.id.btnSaveStudent);
 
 
@@ -41,9 +45,13 @@ EditText t1,t2;
 
                 FirebaseUser user=fAuth.getCurrentUser();
                 DocumentReference df=fStore.collection("Users").document(user.getUid())
-                        .collection("Students").document(t1.getText().toString());
+                        .collection("Students").document(adNum.getText().toString());
                 Map<String,Object> userInfo=new HashMap<>();
-                userInfo.put("udise",t2.getText().toString());
+                userInfo.put("Name",name.getText().toString());
+                userInfo.put("fatherName",fatherName.getText().toString());
+                userInfo.put("motherName",motherName.getText().toString());
+                userInfo.put("residence",residence.getText().toString());
+                userInfo.put("uid",uid.getText().toString());
 
 
                 df.set(userInfo);
