@@ -5,9 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="30dp"
+    android:padding="10dp"
     android:background="@color/background"
-    tools:context=".RegisterActivity">
+    tools:context=".RegisterStudentActivity">
+
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -20,50 +30,58 @@
         >
 
         <EditText
-            android:id="@+id/registerUdise"
+            android:id="@+id/adNum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Enter UDISE Code"
+            android:hint="Enter Admission Number"
             android:inputType="number"
-            android:textSize="22sp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-
-        android:layout_marginTop="7dp"
-        >
-
-        <EditText
-            android:id="@+id/registerEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Enter Email"
-            android:inputType="textEmailAddress"
-            android:textSize="22sp" />
+            android:textSize="22sp"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textColor="@color/purple_700"/>
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusable="true"
         android:focusableInTouchMode="true"
-
         android:layout_marginTop="7dp"
         >
 
         <EditText
-            android:id="@+id/registerSchool"
+            android:id="@+id/sName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="School Name"
+            android:hint="Student Name"
             android:inputType="text"
-            android:textSize="22sp" />
+            android:textSize="18sp"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textColor="@color/purple_700" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+
+        android:layout_marginTop="5dp"
+        >
+
+        <EditText
+            android:id="@+id/fatherName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Father's Name"
+            android:inputType="text"
+            android:textSize="18sp"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textColor="@color/purple_700" />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -71,18 +89,20 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
 
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="5dp"
         >
 
         <EditText
-            android:id="@+id/registerPassword"
+            android:id="@+id/motherName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Password"
             android:ems="10"
-            android:inputType="textPassword"
-            android:textSize="22sp"
-            />
+            android:hint="Mother's Name"
+            android:inputType="text"
+            android:textSize="18sp"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textColor="@color/purple_700" />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -90,42 +110,53 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
 
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="5dp"
         >
 
         <EditText
-            android:id="@+id/registerConfirmPassword"
+            android:id="@+id/residence"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Confirm Password"
             android:ems="10"
-            android:inputType="textPassword"
-            android:textSize="22sp"
-            />
+            android:hint="Residence"
+            android:inputType="text"
+            android:textSize="18sp"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textColor="@color/purple_700"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+
+        android:layout_marginTop="5dp"
+        >
+
+        <EditText
+            android:id="@+id/uid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Aadhar"
+            android:inputType="number"
+            android:textColor="@color/purple_700"
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
 
+</LinearLayout>
+</androidx.cardview.widget.CardView>
+
+
     <Button
-        android:id="@+id/registerBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/btn_rounded"
-        android:text="Register"
-        android:textSize="20dp"
-        app:backgroundTint="@color/colorAccent">
+        android:id="@+id/btnSaveStudent"
+        android:text="Submit"/>
 
-    </Button>
-    <Button
-        android:id="@+id/goToLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/btn_rounded"
-        android:text="Login"
-        android:textSize="20dp"
-        app:backgroundTint="@color/colorAccent">
 
-    </Button>
 </LinearLayout>
