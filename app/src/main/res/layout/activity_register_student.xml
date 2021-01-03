@@ -19,16 +19,15 @@
     android:padding="10dp">
 
 
-
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/adNumField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:id="@+id/adNumField"
-        android:layout_marginTop="7dp"
 
-        >
+        app:errorTextColor="@color/error_color2">
 
         <EditText
             android:id="@+id/adNum"
@@ -37,10 +36,10 @@
             android:ems="10"
             android:hint="Enter Admission Number"
             android:inputType="number"
-            android:textSize="22sp"
             android:textAllCaps="true"
-            android:textStyle="bold"
-            android:textColor="@color/purple_700"/>
+            android:textColor="@color/purple_700"
+            android:textSize="22sp"
+            android:textStyle="bold" />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -49,6 +48,7 @@
         android:focusableInTouchMode="true"
         android:layout_marginTop="7dp"
         android:id="@+id/nameField"
+        app:errorTextColor="@color/error_color2"
         >
 
         <EditText
@@ -60,8 +60,8 @@
             android:inputType="text"
             android:textSize="18sp"
             android:textAllCaps="true"
-            android:textStyle="bold"
-            android:textColor="@color/purple_700" />
+            android:textStyle="bold"/>
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -71,6 +71,7 @@
         android:focusableInTouchMode="true"
         android:id="@+id/fNameField"
         android:layout_marginTop="5dp"
+        app:errorTextColor="@color/error_color2"
         >
 
         <EditText
@@ -92,6 +93,7 @@
         android:focusableInTouchMode="true"
         android:id="@+id/mNameField"
         android:layout_marginTop="5dp"
+        app:errorTextColor="@color/error_color2"
         >
 
         <EditText
@@ -113,6 +115,7 @@
         android:focusableInTouchMode="true"
         android:id="@+id/resField"
         android:layout_marginTop="5dp"
+        app:errorTextColor="@color/error_color2"
         >
 
         <EditText
@@ -134,6 +137,7 @@
         android:focusableInTouchMode="true"
         android:id="@+id/uidField"
         android:layout_marginTop="5dp"
+        app:errorTextColor="@color/error_color2"
         >
 
         <EditText
@@ -159,6 +163,7 @@
             android:layout_height="match_parent"
             android:id="@+id/dobField"
             android:layout_marginTop="7dp"
+            app:errorTextColor="@color/error_color2"
             >
 
             <EditText
@@ -185,6 +190,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="7dp"
             android:id="@+id/phoneField"
+            app:errorTextColor="@color/error_color2"
             >
 
             <EditText

@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ public class RegisterStudentActivity extends AppCompatActivity {
     private Spinner c1;
     private String gender="";
     private RadioButton r1,r2;
+    private RadioGroup radioGroupD;
     private EditText mDisplayDate;
     private DatePickerDialog.OnDateSetListener onDateSetListener ;
 
@@ -135,7 +137,7 @@ public class RegisterStudentActivity extends AppCompatActivity {
         r1=findViewById(R.id.radio_male);
         r2=findViewById(R.id.radio_female);
 
-
+        radioGroupD=findViewById(R.id.radioGroup);
         saveBtn = findViewById(R.id.btnSaveStudent);
 
 
@@ -169,65 +171,69 @@ public class RegisterStudentActivity extends AppCompatActivity {
         }
 
         //Validation Starts Here
-        //Ad Number
-        if (adNumD.getText().toString().isEmpty()) {
-            admField.setError("Admission Number Mandatory");
-            isValid = false;
-        } else {
-            admField.setErrorEnabled(false);
+
+        //Adm Number
+        if(TextUtils.isEmpty(adNumD.getText().toString().trim())){
+            Toast.makeText(RegisterStudentActivity.this, "Please Enter Admission Number", Toast.LENGTH_SHORT).show();
+            return;
         }
-        //name
-        if (nameD.getText().toString().isEmpty()) {
-            nameField.setError("Name is mandatory");
-            isValid = false;
-        } else {
-            nameField.setErrorEnabled(false);
+        //Name
+        if(TextUtils.isEmpty(nameD.getText().toString().trim())){
+            Toast.makeText(RegisterStudentActivity.this, "Please Enter your Name", Toast.LENGTH_SHORT).show();
+            return;
         }
-        //Father name
-        if (fatherNameD.getText().toString().isEmpty()) {
-            fNameField.setError("Father's Name is mandatory");
-            isValid = false;
-        } else {
-            fNameField.setErrorEnabled(false);
+        //FatherName
+        if(TextUtils.isEmpty(fatherNameD.getText().toString().trim())){
+            Toast.makeText(RegisterStudentActivity.this, "Please Enter Father's Name", Toast.LENGTH_SHORT).show();
+            return;
         }
-        //Mother name
-        if (motherNameD.getText().toString().isEmpty()) {
-            mNameField.setError("Mother's Name is mandatory");
-            isValid = false;
-        } else {
-            mNameField.setErrorEnabled(false);
+        //Mother Name
+        if(TextUtils.isEmpty(motherNameD.getText().toString().trim())){
+            Toast.makeText(RegisterStudentActivity.this, "Please Enter Mother's", Toast.LENGTH_SHORT).show();
+            return;
         }
         //Residence
-        if (residenceD.getText().toString().isEmpty()) {
-            resField.setError("Residence is mandatory");
-            isValid = false;
-        } else {
-            resField.setErrorEnabled(false);
+        if(TextUtils.isEmpty(residenceD.getText().toString().trim())){
+            Toast.makeText(RegisterStudentActivity.this, "Please Enter Residence", Toast.LENGTH_SHORT).show();
+            return;
         }
-        //AAdhaar
-        if (uidD.getText().toString().isEmpty()) {
-            uidField.setError("Aadhar is mandatory");
-            isValid = false;
-
-        } else {
-            uidField.setErrorEnabled(false);
-
+        //Aadhar
+        if(TextUtils.isEmpty(uidD.getText().toString().trim())){
+            Toast.makeText(RegisterStudentActivity.this, "Please Enter Aadhar Number", Toast.LENGTH_SHORT).show();
+            return;
         }
+        //Aadhar Length
+        if(uidD.getText().toString().length()!=12){
+            Toast.makeText(RegisterStudentActivity.this, "Aadhar Must be 12 Digit", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         //DOB
-        if (dobD.getText().toString().isEmpty()) {
-            uidField.setError("Enter DOB");
-            isValid = false;
-
-        }else {
-            dobField.setErrorEnabled(false);
+        if(TextUtils.isEmpty(dobD.getText().toString().trim())){
+            Toast.makeText(RegisterStudentActivity.this, "Please Enter DOb", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        //Residence
+        if(TextUtils.isEmpty(phoneD.getText().toString().trim())){
+            Toast.makeText(RegisterStudentActivity.this, "Please Enter Residence", Toast.LENGTH_SHORT).show();
+            return;
         }
         //Phone
-            if (phoneD.getText().toString().isEmpty()) {
-                phoneField.setError("Enter DOB");
-                isValid = false;
-            }else {
-                phoneField.setErrorEnabled(false);
-            }
+        if(TextUtils.isEmpty(phoneD.getText().toString().trim())){
+            Toast.makeText(RegisterStudentActivity.this, "Enter Phone Number", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        //Phone Length
+        if(phoneD.getText().toString().length()!=10){
+            Toast.makeText(RegisterStudentActivity.this, "Phone Number must be 10 Digits", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (radioGroupD.getCheckedRadioButtonId() == -1)
+        {
+            Toast.makeText(RegisterStudentActivity.this, "Please Select Gender", Toast.LENGTH_SHORT).show();
+            return;
+        }
             //Validation Ends:
 
         if (isValid) {
@@ -269,10 +275,11 @@ public class RegisterStudentActivity extends AppCompatActivity {
 
 
             Log.d(TAG,"Success");
+            finish();
 
 
         } else{
-            Log.d(TAG,"Issue With Firebase Insertion Section");
+            Log.d(TAG,"Failed to Submit");
             //Toast.makeText(this, "Not Done", Toast.LENGTH_SHORT).show();
         }
 
