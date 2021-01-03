@@ -3,6 +3,7 @@ package com.zeomawer.qsams;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -153,6 +154,8 @@ public class RegisterStudentActivity extends AppCompatActivity {
 
 
 
+
+
             }
         });
 
@@ -275,6 +278,8 @@ public class RegisterStudentActivity extends AppCompatActivity {
 
 
             Log.d(TAG,"Success");
+
+            startActivity(new Intent(getApplicationContext(),MainActivity.class));
             finish();
 
 
@@ -287,6 +292,19 @@ public class RegisterStudentActivity extends AppCompatActivity {
     }
 
 
+    public void btnClear(View view) {
+        adNumD.setText("");
+        nameD.setText("");
+        fatherNameD.setText("");
+        motherNameD.setText("");
+        residenceD.setText("");
+        uidD.setText("");
+        dobD.setText("");
+        phoneD.setText("");
+        c1.setSelected(false);
+        r1.setChecked(false);
+        r2.setChecked(false);
+    }
 }
 
 

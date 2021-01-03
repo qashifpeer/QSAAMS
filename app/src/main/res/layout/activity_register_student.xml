@@ -291,6 +291,7 @@
         android:layout_height="wrap_content"
         android:text="Clear"
         android:layout_gravity="center"
+        android:onClick="btnClear"
         />
 
 </LinearLayout>

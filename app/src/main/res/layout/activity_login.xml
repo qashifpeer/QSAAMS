@@ -70,7 +70,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@drawable/btn_rounded"
-        android:onClick="btn_RegisterForm"
         android:text="Register"
         android:textSize="20dp"
         app:backgroundTint="@color/colorAccent">
