@@ -2,118 +2,153 @@ package com.zeomawer.qsams;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterStudentActivity extends AppCompatActivity {
-EditText adNum,name,fatherName,motherName,residence,aadhar;
- Button b1;
+    private static final String TAG=RegisterStudentActivity.class.getSimpleName();
+    private EditText adNumD, nameD, fatherNameD, motherNameD, residenceD, uidD,dobD,phoneD;
+    private TextInputLayout admField, nameField, fNameField, mNameField, resField, uidField,dobField,phoneField;
+    private Button saveBtn;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
-    boolean valid = true;
+    private Spinner classSpinner;
+    private Spinner c1;
+    private String gender="";
+    private RadioButton r1,r2;
+    private EditText mDisplayDate;
+    private DatePickerDialog.OnDateSetListener onDateSetListener ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_student);
-        fAuth=FirebaseAuth.getInstance();
-        fStore=FirebaseFirestore.getInstance();
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
 
-        adNum=findViewById(R.id.adNum);
-        name=findViewById(R.id.sName);
-        fatherName=findViewById(R.id.fatherName);
-        motherName=findViewById(R.id.motherName);
-        residence=findViewById(R.id.residence);
-        aadhar=findViewById(R.id.uid);
-        b1=findViewById(R.id.btnSaveStudent);
+        initializeWidgets();
 
-        String admNum=adNum.getText().toString().trim();
-        String sName=name.getText().toString().trim();
-        String fName=fatherName.getText().toString().trim();
-        String mName=motherName.getText().toString().trim();
-        String res=residence.getText().toString().trim();
-        String uid=aadhar.getText().toString().trim();
+        initializeListeners();
 
 
 
-
-        b1.setOnClickListener(new View.OnClickListener() {
-
-
-
+        //************** code for DOB of Student****** Begins*****
+        mDisplayDate= (EditText) findViewById(R.id.dob);
+        mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                Calendar cal=Calendar.getInstance();
+                int year=cal.get(Calendar.YEAR);
+                int month=cal.get(Calendar.MONTH);
+                int day=cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog=new DatePickerDialog(
+                        RegisterStudentActivity.this, android.R.style.Theme_DeviceDefault_Dialog_MinWidth,
+                        onDateSetListener,
+                        year,month,day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                dialog.show();
+            }
+        });
+
+        onDateSetListener=new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month=month+1;
+                String date=dayOfMonth+ "/" + month + "/" +year;
+                mDisplayDate.setText(date);
+
+            }
+        };
+        //************** code for DOB of Student****** End hre*****
+        //************** code for Spinner Class of Student****** Begins hre*****
+        classSpinner = (Spinner) findViewById(R.id.classSpinner);
+        classSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                // do something upon option selection
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+                // can leave this empty
+            }
+        });
 
 
 
-                if(TextUtils.isEmpty(admNum)){
-                    Toast.makeText(RegisterStudentActivity.this, "Please Enter Admission Number", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(TextUtils.isEmpty(sName)){
-                    Toast.makeText(RegisterStudentActivity.this, "Please Enter your Name", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(TextUtils.isEmpty(fName)){
-                    Toast.makeText(RegisterStudentActivity.this, "Please Enter Father's Name", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(TextUtils.isEmpty(mName)){
-                    Toast.makeText(RegisterStudentActivity.this, "Please Enter Mother's", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(TextUtils.isEmpty(res)){
-                    Toast.makeText(RegisterStudentActivity.this, "Please Enter Residence", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(TextUtils.isEmpty(uid)){
-                    Toast.makeText(RegisterStudentActivity.this, "Please Enter Your Aadhar Number", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(uid.length()!=12){
-                    Toast.makeText(RegisterStudentActivity.this, "Aadhar Number Should be of 12 Digits", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+        //************** code for Spinner Class of Student****** End hre*****
 
 
-                if(valid){
+    }
+
+    private void initializeWidgets() {
 
 
-                }
-
-                FirebaseUser user=fAuth.getCurrentUser();
-                DocumentReference df=fStore.collection("Users").document(user.getUid())
-                        .collection("Students").document(admNum);
-                Map<String,Object> userInfo=new HashMap<>();
-                userInfo.put("Name",name);
-                userInfo.put("fatherName",fName);
-                userInfo.put("motherName",mName);
-                userInfo.put("residence",res);
-                userInfo.put("uid",uid);
+        admField = findViewById(R.id.adNumField);
+        nameField = findViewById(R.id.nameField);
+        fNameField = findViewById(R.id.fNameField);
+        mNameField = findViewById(R.id.mNameField);
+        resField = findViewById(R.id.resField);
+        uidField = findViewById(R.id.uidField);
+        dobField = findViewById(R.id.dobField);
+        phoneField= findViewById(R.id.phoneField);
 
 
-                df.set(userInfo);
-                Toast.makeText(RegisterStudentActivity.this, "Student Added", Toast.LENGTH_SHORT).show();
+        adNumD = findViewById(R.id.adNum);
+        nameD = findViewById(R.id.sName);
+        fatherNameD = findViewById(R.id.fatherName);
+        motherNameD = findViewById(R.id.motherName);
+        residenceD = findViewById(R.id.residence);
+        uidD = findViewById(R.id.uid);
+        dobD=findViewById(R.id.dob);
+        phoneD=findViewById(R.id.phone);
+        c1=findViewById(R.id.classSpinner);
+        r1=findViewById(R.id.radio_male);
+        r2=findViewById(R.id.radio_female);
 
-                adNum.setText("");
-                name.setText("");
-                fatherName.setText("");
-                motherName.setText("");
-                residence.setText("");
-                aadhar.setText("");
+
+        saveBtn = findViewById(R.id.btnSaveStudent);
+
+
+
+    }
+
+    private void initializeListeners() {
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signUp();
+
+
 
 
             }
@@ -122,7 +157,149 @@ EditText adNum,name,fatherName,motherName,residence,aadhar;
 
     }
 
-   public void valid(){
+    private void signUp() {
 
-   }
+        boolean isValid = true;
+
+        if (r1.isChecked()){
+            gender="Male";
+        }
+        if (r2.isChecked()){
+            gender="Female";
+        }
+
+        //Validation Starts Here
+        //Ad Number
+        if (adNumD.getText().toString().isEmpty()) {
+            admField.setError("Admission Number Mandatory");
+            isValid = false;
+        } else {
+            admField.setErrorEnabled(false);
+        }
+        //name
+        if (nameD.getText().toString().isEmpty()) {
+            nameField.setError("Name is mandatory");
+            isValid = false;
+        } else {
+            nameField.setErrorEnabled(false);
+        }
+        //Father name
+        if (fatherNameD.getText().toString().isEmpty()) {
+            fNameField.setError("Father's Name is mandatory");
+            isValid = false;
+        } else {
+            fNameField.setErrorEnabled(false);
+        }
+        //Mother name
+        if (motherNameD.getText().toString().isEmpty()) {
+            mNameField.setError("Mother's Name is mandatory");
+            isValid = false;
+        } else {
+            mNameField.setErrorEnabled(false);
+        }
+        //Residence
+        if (residenceD.getText().toString().isEmpty()) {
+            resField.setError("Residence is mandatory");
+            isValid = false;
+        } else {
+            resField.setErrorEnabled(false);
+        }
+        //AAdhaar
+        if (uidD.getText().toString().isEmpty()) {
+            uidField.setError("Aadhar is mandatory");
+            isValid = false;
+
+        } else {
+            uidField.setErrorEnabled(false);
+
+        }
+        //DOB
+        if (dobD.getText().toString().isEmpty()) {
+            uidField.setError("Enter DOB");
+            isValid = false;
+
+        }else {
+            dobField.setErrorEnabled(false);
+        }
+        //Phone
+            if (phoneD.getText().toString().isEmpty()) {
+                phoneField.setError("Enter DOB");
+                isValid = false;
+            }else {
+                phoneField.setErrorEnabled(false);
+            }
+            //Validation Ends:
+
+        if (isValid) {
+
+
+            Toast.makeText(this, "Data Submitted Successfully", Toast.LENGTH_SHORT).show();
+        //Saving Data to Firebase
+            FirebaseUser user = fAuth.getCurrentUser();
+            DocumentReference df = fStore.collection("Users").document(user.getUid())
+                    .collection("Students").document(adNumD.getText().toString());
+            Map<String, Object> userInfo = new HashMap<>();
+            userInfo.put("Name", nameD.getText().toString());
+            userInfo.put("fatherName", fatherNameD.getText().toString());
+            userInfo.put("motherName", motherNameD.getText().toString());
+            userInfo.put("residence", residenceD.getText().toString());
+            userInfo.put("uid", uidD.getText().toString());
+
+            userInfo.put("dob", dobD.getText().toString());
+            userInfo.put("Phone", phoneD.getText().toString());
+            userInfo.put("class", c1.getSelectedItem().toString());
+            userInfo.put("Gender", gender);
+
+
+
+            df.set(userInfo);
+
+
+            adNumD.setText("");
+            nameD.setText("");
+            fatherNameD.setText("");
+            motherNameD.setText("");
+            residenceD.setText("");
+            uidD.setText("");
+            dobD.setText("");
+            phoneD.setText("");
+            c1.setSelected(false);
+            r1.setChecked(false);
+            r2.setChecked(false);
+
+
+            Log.d(TAG,"Success");
+
+
+        } else{
+            Log.d(TAG,"Issue With Firebase Insertion Section");
+            //Toast.makeText(this, "Not Done", Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
