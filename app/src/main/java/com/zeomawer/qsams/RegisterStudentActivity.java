@@ -31,7 +31,7 @@ import java.util.Map;
 
 public class RegisterStudentActivity extends AppCompatActivity {
     private static final String TAG=RegisterStudentActivity.class.getSimpleName();
-    private EditText adNumD, nameD, fatherNameD, motherNameD, residenceD, uidD,dobD,phoneD;
+    private EditText adNumD, nameD, fatherNameD, motherNameD, residenceD, uidD,dobD,phoneD,admDateD;
     private TextInputLayout admField, nameField, fNameField, mNameField, resField, uidField,dobField,phoneField;
     private Button saveBtn;
     FirebaseAuth fAuth;
@@ -42,7 +42,10 @@ public class RegisterStudentActivity extends AppCompatActivity {
     private RadioButton r1,r2;
     private RadioGroup radioGroupD;
     private EditText mDisplayDate;
+    private EditText mDisplayDate2;
+    private DatePickerDialog.OnDateSetListener onDateSetListener2 ;
     private DatePickerDialog.OnDateSetListener onDateSetListener ;
+
 
 
     @Override
@@ -56,7 +59,37 @@ public class RegisterStudentActivity extends AppCompatActivity {
 
         initializeListeners();
 
+//************** code for Date of Admission****** Begins*****
+        mDisplayDate2= (EditText) findViewById(R.id.admDate);
+        mDisplayDate2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                Calendar cal=Calendar.getInstance();
+                int year=cal.get(Calendar.YEAR);
+                int month=cal.get(Calendar.MONTH);
+                int day=cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog=new DatePickerDialog(
+                        RegisterStudentActivity.this, android.R.style.Theme,
+                        onDateSetListener2,
+                        year,month,day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                dialog.show();
+            }
+        });
+
+        onDateSetListener2=new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month=month+1;
+                String date=dayOfMonth+ "/" + month + "/" +year;
+                mDisplayDate2.setText(date);
+
+            }
+        };
+        //************** code for Admission Date****** End hre*****
 
         //************** code for DOB of Student****** Begins*****
         mDisplayDate= (EditText) findViewById(R.id.dob);
@@ -116,7 +149,7 @@ public class RegisterStudentActivity extends AppCompatActivity {
     private void initializeWidgets() {
 
 
-        admField = findViewById(R.id.adNumField);
+        /*admField = findViewById(R.id.adNumField);
         nameField = findViewById(R.id.nameField);
         fNameField = findViewById(R.id.fNameField);
         mNameField = findViewById(R.id.mNameField);
@@ -124,7 +157,7 @@ public class RegisterStudentActivity extends AppCompatActivity {
         uidField = findViewById(R.id.uidField);
         dobField = findViewById(R.id.dobField);
         phoneField= findViewById(R.id.phoneField);
-
+*/
 
         adNumD = findViewById(R.id.adNum);
         nameD = findViewById(R.id.sName);
@@ -137,6 +170,7 @@ public class RegisterStudentActivity extends AppCompatActivity {
         c1=findViewById(R.id.classSpinner);
         r1=findViewById(R.id.radio_male);
         r2=findViewById(R.id.radio_female);
+        admDateD=findViewById(R.id.admDate);
 
         radioGroupD=findViewById(R.id.radioGroup);
         saveBtn = findViewById(R.id.btnSaveStudent);
@@ -200,6 +234,11 @@ public class RegisterStudentActivity extends AppCompatActivity {
             Toast.makeText(RegisterStudentActivity.this, "Please Enter Residence", Toast.LENGTH_SHORT).show();
             return;
         }
+        //Admission Date
+        if(TextUtils.isEmpty(admDateD.getText().toString().trim())){
+            Toast.makeText(RegisterStudentActivity.this, "Please Enter DOb", Toast.LENGTH_SHORT).show();
+            return;
+        }
         //Aadhar
         if(TextUtils.isEmpty(uidD.getText().toString().trim())){
             Toast.makeText(RegisterStudentActivity.this, "Please Enter Aadhar Number", Toast.LENGTH_SHORT).show();
@@ -248,27 +287,25 @@ public class RegisterStudentActivity extends AppCompatActivity {
             DocumentReference df = fStore.collection("Users").document(user.getUid())
                     .collection("Students").document(adNumD.getText().toString());
             Map<String, Object> userInfo = new HashMap<>();
-            userInfo.put("Name", nameD.getText().toString());
-            userInfo.put("fatherName", fatherNameD.getText().toString());
-            userInfo.put("motherName", motherNameD.getText().toString());
+            userInfo.put("name", nameD.getText().toString());
+            userInfo.put("fathername", fatherNameD.getText().toString());
+            userInfo.put("mothername", motherNameD.getText().toString());
             userInfo.put("residence", residenceD.getText().toString());
+            userInfo.put("admdate", dobD.getText().toString());
             userInfo.put("uid", uidD.getText().toString());
-
             userInfo.put("dob", dobD.getText().toString());
-            userInfo.put("Phone", phoneD.getText().toString());
+            userInfo.put("phone", phoneD.getText().toString());
             userInfo.put("class", c1.getSelectedItem().toString());
-            userInfo.put("Gender", gender);
-
-
+            userInfo.put("gender", gender);
 
             df.set(userInfo);
-
 
             adNumD.setText("");
             nameD.setText("");
             fatherNameD.setText("");
             motherNameD.setText("");
             residenceD.setText("");
+            admDateD.setText("");
             uidD.setText("");
             dobD.setText("");
             phoneD.setText("");
@@ -279,8 +316,6 @@ public class RegisterStudentActivity extends AppCompatActivity {
 
             Log.d(TAG,"Success");
 
-            startActivity(new Intent(getApplicationContext(),MainActivity.class));
-            finish();
 
 
         } else{

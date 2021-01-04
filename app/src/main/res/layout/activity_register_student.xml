@@ -38,7 +38,7 @@
             android:inputType="number"
             android:textAllCaps="true"
             android:textColor="@color/purple_700"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
@@ -130,28 +130,60 @@
             android:textStyle="bold"
             android:textColor="@color/purple_700"/>
     </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/admDateField"
+            android:layout_marginTop="7dp"
+            app:errorTextColor="@color/error_color2"
+            >
+
+            <EditText
+                android:id="@+id/admDate"
+                android:longClickable="false"
+                android:focusableInTouchMode="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:clickable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:hint="Admission Date"
+                android:inputType="none"
+                android:layout_weight="1"
+                android:textSize="12sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:id="@+id/uidField"
         android:layout_marginTop="5dp"
         app:errorTextColor="@color/error_color2"
+        android:layout_marginLeft="10dp"
         >
 
         <EditText
             android:id="@+id/uid"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:ems="10"
             android:hint="Aadhar"
             android:inputType="number"
             android:textColor="@color/purple_700"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_weight="1"/>
     </com.google.android.material.textfield.TextInputLayout>
 
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -229,12 +261,13 @@
      <Spinner
          android:id="@+id/classSpinner"
          android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
+         android:layout_height="match_parent"
          android:layout_marginTop="5dp"
          android:layout_weight="1"
          android:background="#E1DBDB"
          android:entries="@array/items_class"
          android:popupBackground="#E1DFDF"
+         android:outlineSpotShadowColor="@color/purple_200"
          android:textSize="20dp" />
      <RadioGroup
          android:layout_width="wrap_content"
