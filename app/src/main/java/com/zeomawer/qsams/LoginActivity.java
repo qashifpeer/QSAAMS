@@ -10,12 +10,8 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
-import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -26,6 +22,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -52,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
 
         initViews();
         fAuth=FirebaseAuth.getInstance();
+
 
         mBtnSignin.setOnClickListener(this::singInUser);
         mBtnRegisterUser.setOnClickListener(this::createUser);
@@ -116,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
                 //Identify User Access Level
                 if(documentSnapshot.getString("isAdmin")!=null){
                     //if admin field is present user is admin
-                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    startActivity(new Intent(getApplicationContext(),AdminActivity.class));
                     finish();
                 }
                 if (documentSnapshot.getString("isUser")!= null){
@@ -129,6 +127,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void updateUI() {
         FirebaseUser user=fAuth.getCurrentUser();
+        //user.reload();
         if(user==null){
             mOutputText.setText("User not Logged In");
             return;
@@ -155,14 +154,20 @@ public class LoginActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(LoginActivity.this, "User created", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(),RegisterActivity.class));
+                    startActivity(new Intent(getApplicationContext(), RegisterSchoolActivity.class));
 
                     //hideProgressBar();
 //                            updateUI();
-                } else {
-                    Toast.makeText(LoginActivity.this, "Error occurred", Toast.LENGTH_SHORT).show();
-                   // hideProgressBar();
                 }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                if (e instanceof FirebaseAuthUserCollisionException) {
+                    Toast.makeText(LoginActivity.this, "Email Already Registered", Toast.LENGTH_SHORT).show();
+                    mOutputText.setText("Email already in use");
+                }
+
             }
         });
     }
@@ -214,33 +219,14 @@ public class LoginActivity extends AppCompatActivity {
 
        }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //updateUI();
-        fAuth.addAuthStateListener(mAuthStateListener);
-
-    }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        if(mAuthStateListener != null){
-
-            if (fAuth == null) {
-                fAuth.removeAuthStateListener(mAuthStateListener);
-            }
-        }
-    }
-
-    /*@Override
     protected void onResume() {
         super.onResume();
-        super.onResume();
         fAuth.addAuthStateListener(mAuthStateListener);
-    }*/
+    }
 
-   /* @Override
+    @Override
     protected void onPause() {
           super.onPause();
         if(mAuthStateListener != null){
@@ -249,16 +235,8 @@ public class LoginActivity extends AppCompatActivity {
                 fAuth.removeAuthStateListener(mAuthStateListener);
             }
         }
-    }*/
-
-
-    /*private void showProgressBar() {
-        mProgressBar.setIndeterminate(true);
-        mProgressBar.setVisibility(View.VISIBLE);
     }
 
-    private void hideProgressBar() {
-        mProgressBar.setVisibility(View.GONE);
-    }
-*/}
+
+}
 

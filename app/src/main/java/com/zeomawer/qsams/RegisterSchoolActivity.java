@@ -23,7 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterSchoolActivity extends AppCompatActivity {
     private EditText mUdise, mSchool;
     private Button mRegisterBtn, mBtnClear;
     boolean valid = true;
