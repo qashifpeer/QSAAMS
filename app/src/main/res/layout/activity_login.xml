@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:focusable="true"
         android:focusableInTouchMode="true"
-
+        android:id="@+id/fieldLogin"
         android:layout_marginTop="7dp"
         >
 
@@ -31,6 +31,7 @@
             android:ems="10"
             android:inputType="text"
             android:textSize="22sp"
+
             />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
@@ -40,6 +41,7 @@
         android:focusableInTouchMode="true"
         app:passwordToggleEnabled="true"
         android:layout_marginTop="7dp"
+        android:id="@+id/fieldPassword"
         >
 
         <EditText
@@ -51,6 +53,17 @@
             android:inputType="textPassword"
             android:textSize="22sp" />
     </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:id="@+id/tv_output"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Ready to Code!"
+        android:textSize="24sp"
+         />
 
     <Button
         android:id="@+id/btn_login"

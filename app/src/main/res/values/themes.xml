@@ -16,8 +16,9 @@
 
         <item name="colorControlNormal">@color/control_normal</item>
         <item name="errorTextColor">@color/error_color2</item>
-
+        <item name="android:windowDisablePreview">true</item>
 
 
     </style>
+
 </resources>
