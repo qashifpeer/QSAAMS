@@ -119,7 +119,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if (documentSnapshot.getString("isUser")!= null){
                     //teacher user
-                    startActivity(new Intent(getApplicationContext(),UserActivity.class));
+                    startActivity(new Intent(getApplicationContext(),ViewStudentActivity.class));
                     finish();
                 }
             }
