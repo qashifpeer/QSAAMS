@@ -13,55 +13,37 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.api.LogDescriptor;
+import com.zeomawer.qsams.databinding.ActivityRegisterStudentBinding;
+import com.zeomawer.qsams.databinding.ActivityViewStudentBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class ViewStudentActivity extends AppCompatActivity implements MovieListAdapter.MovieClickInterface {
-
-    private static final String TAG = "ViewStudentActivity";
-    private MovieListAdapter movieListAdapter;
-    private MovieViewModel movieViewModel;
+public class ViewStudentActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_student);
+        //setContentView(R.layout.activity_view_student);
+       // RecyclerView recyclerView = findViewById(R.id.recyclerView);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        movieListAdapter = new MovieListAdapter( Movie.itemCallback , this);
-        recyclerView.setAdapter(movieListAdapter);
+        ActivityViewStudentBinding activityViewStudentBinding=ActivityViewStudentBinding.inflate(getLayoutInflater());
+        setContentView(activityViewStudentBinding.getRoot());
 
-        movieViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
-        movieViewModel.getMovieList().observe(this, new Observer<List<Movie>>() {
-            @Override
-            public void onChanged(List<Movie> movies) {
-                movieListAdapter.submitList(movies);
-            }
-        });
+        UserRecyclerAdapter userRecyclerAdapter = new UserRecyclerAdapter(getUserList());
+        activityViewStudentBinding.recyclerView.setAdapter(userRecyclerAdapter);
+        activityViewStudentBinding.recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
     }
 
-    public void addItem(View view) {
-        Movie movie = new Movie("Avenger's", "9");
-        movieViewModel.addMovie(movie);
-    }
-
-    public void updateItem(View view) {
-        int randomPostion = new Random().nextInt(movieListAdapter.getItemCount());
-        Movie movie = movieListAdapter.getCurrentList().get(randomPostion);
-
-        Movie updateMovie = new Movie(movie.getName(), movie.getRating());
-        updateMovie.setId(movie.getId());
-        updateMovie.setName(movie.getName() + " :updated");
-
-        movieViewModel.updateMovie(updateMovie, randomPostion);
-    }
-
-    @Override
-    public void onDelete(int position) {
-        movieViewModel.deleteMovie(position);
+    private List<User> getUserList() {
+        List<User> userList = new ArrayList<>();
+        userList.add(new User("Jhon Doe", 70, true, "https://picsum.photos/id/237/200"));
+        userList.add(new User("Charles Dickens", 70, true, "https://picsum.photos/id/238/200"));
+        userList.add(new User("Harry Potter", 70, false, "https://picsum.photos/id/239/200"));
+        userList.add(new User("Jessica Simpson", 70, true, "https://picsum.photos/id/240/200"));
+        userList.add(new User("Paul Addams", 70, false, "https://picsum.photos/id/241/200"));
+        return userList;
     }
 }
