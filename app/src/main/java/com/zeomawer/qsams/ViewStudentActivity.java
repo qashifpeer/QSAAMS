@@ -1,72 +1,67 @@
 package com.zeomawer.qsams;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
+
+import com.google.api.LogDescriptor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-public class ViewStudentActivity extends AppCompatActivity implements RecyclerViewClickInterface {
-    RecyclerView recyclerView;
-    RecyclerAdapter recyclerAdapter;
-    List<String> moviesList;
+public class ViewStudentActivity extends AppCompatActivity implements MovieListAdapter.MovieClickInterface {
+
+    private static final String TAG = "ViewStudentActivity";
+    private MovieListAdapter movieListAdapter;
+    private MovieViewModel movieViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_student);
 
-        moviesList = new ArrayList<>();
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        movieListAdapter = new MovieListAdapter( Movie.itemCallback , this);
+        recyclerView.setAdapter(movieListAdapter);
 
-        recyclerView=findViewById(R.id.recyclerView);
-        recyclerAdapter=new RecyclerAdapter(moviesList,this);
-        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(recyclerAdapter);
-
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        recyclerView.addItemDecoration(dividerItemDecoration);
-
-        moviesList.add("Iron Man");
-        moviesList.add("The Incredible Hulk");
-        moviesList.add("Iron Man 2");
-        moviesList.add("Thor");
-        moviesList.add("Captain America: The First Avenger");
-        moviesList.add("The Avengers");
-        moviesList.add("Iron Man 3");
-        moviesList.add("Thor: The Dark World");
-        moviesList.add("Captain America: The Winter Soldier");
-        moviesList.add("Guardians of the Galaxy");
-        moviesList.add("Avengers: Age of Ultron");
-        moviesList.add("Ant-Man");
-        moviesList.add("Captain America: Civil War");
-        moviesList.add("Doctor Strange");
-        moviesList.add("Guardians of the Galaxy Vol. 2");
-        moviesList.add("Spider-Man: Homecoming");
-        moviesList.add("Thor: Ragnarok");
-        moviesList.add("Black Panther");
-        moviesList.add("Avengers: Infinity War");
-        moviesList.add("Ant-Man and the Wasp");
-        moviesList.add("Captain Marvel");
-        moviesList.add("Avengers: Endgame");
-        moviesList.add("Spider-Man: Far From Home");
+        movieViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
+        movieViewModel.getMovieList().observe(this, new Observer<List<Movie>>() {
+            @Override
+            public void onChanged(List<Movie> movies) {
+                movieListAdapter.submitList(movies);
+            }
+        });
 
     }
 
-    @Override
-    public void onItemClick(int position) {
+    public void addItem(View view) {
+        Movie movie = new Movie("Avenger's", "9");
+        movieViewModel.addMovie(movie);
+    }
 
-        Toast.makeText(this, moviesList.get(position), Toast.LENGTH_SHORT).show();
+    public void updateItem(View view) {
+        int randomPostion = new Random().nextInt(movieListAdapter.getItemCount());
+        Movie movie = movieListAdapter.getCurrentList().get(randomPostion);
+
+        Movie updateMovie = new Movie(movie.getName(), movie.getRating());
+        updateMovie.setId(movie.getId());
+        updateMovie.setName(movie.getName() + " :updated");
+
+        movieViewModel.updateMovie(updateMovie, randomPostion);
     }
 
     @Override
-    public void onLongItemClick(int position) {
-        moviesList.remove(position);
-        recyclerAdapter.notifyItemRemoved(position);
-
+    public void onDelete(int position) {
+        movieViewModel.deleteMovie(position);
     }
 }
