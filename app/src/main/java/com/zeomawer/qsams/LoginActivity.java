@@ -111,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Log.d("TAG", "onSuccess: " +documentSnapshot.getData());
-                //Identify User Access Level
+                //Identify List_Data Access Level
                 if(documentSnapshot.getString("isAdmin")!=null){
                     //if admin field is present user is admin
                     startActivity(new Intent(getApplicationContext(),AdminActivity.class));
@@ -129,7 +129,7 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser user=fAuth.getCurrentUser();
         //user.reload();
         if(user==null){
-            mOutputText.setText("User not Logged In");
+            mOutputText.setText("List_Data not Logged In");
             return;
         }else{
             mOutputText.setText(user.getEmail());
@@ -153,7 +153,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(LoginActivity.this, "User created", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "List_Data created", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(), RegisterSchoolActivity.class));
 
                     //hideProgressBar();

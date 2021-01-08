@@ -1,49 +1,97 @@
 package com.zeomawer.qsams;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Toast;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.google.api.LogDescriptor;
-import com.zeomawer.qsams.databinding.ActivityRegisterStudentBinding;
-import com.zeomawer.qsams.databinding.ActivityViewStudentBinding;
+import com.firebase.client.Query;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class ViewStudentActivity extends AppCompatActivity {
+    private List<ProductsModel>listData;
+    private FirestoreRecyclerAdapter<ProductsModel, ProductsViewHolder> adapter;
+    FirebaseFirestore fStore;
+    private RecyclerView rv;
+    //private FirestoreRecyclerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_view_student);
-       // RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        setContentView(R.layout.activity_view_student);
+        fStore = FirebaseFirestore.getInstance();
+        rv=(RecyclerView)findViewById(R.id.recyclerview);
+        rv.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
-        ActivityViewStudentBinding activityViewStudentBinding=ActivityViewStudentBinding.inflate(getLayoutInflater());
-        setContentView(activityViewStudentBinding.getRoot());
+        //Query
+        com.google.firebase.firestore.Query query=fStore.collection("Users");
 
-        UserRecyclerAdapter userRecyclerAdapter = new UserRecyclerAdapter(getUserList());
-        activityViewStudentBinding.recyclerView.setAdapter(userRecyclerAdapter);
-        activityViewStudentBinding.recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        //Recycler OPtions
+        FirestoreRecyclerOptions<ProductsModel>options=new FirestoreRecyclerOptions.Builder<ProductsModel>()
+                .setQuery(query,ProductsModel.class)
+                .build();
+         adapter= new FirestoreRecyclerAdapter<ProductsModel, ProductsViewHolder>(options) {
+            @NonNull
+            @Override
+            public ProductsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+               View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_single,parent,false);
+                return new ProductsViewHolder(view);
+            }
+
+            @Override
+            protected void onBindViewHolder(ProductsViewHolder productsViewHolder, int i, ProductsModel productsModel) {
+                productsViewHolder.list_school.setText(productsModel.getSchool());
+                productsViewHolder.list_udise.setText(productsModel.getUdise());
+                productsViewHolder.list_user.setText(productsModel.getIsUser());
+            }
+        };
+        //View holdeer Class
+        rv.setHasFixedSize(true);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        rv.setAdapter(adapter);
 
     }
 
-    private List<User> getUserList() {
-        List<User> userList = new ArrayList<>();
-        userList.add(new User("Jhon Doe", 70, true, "https://picsum.photos/id/237/200"));
-        userList.add(new User("Charles Dickens", 70, true, "https://picsum.photos/id/238/200"));
-        userList.add(new User("Harry Potter", 70, false, "https://picsum.photos/id/239/200"));
-        userList.add(new User("Jessica Simpson", 70, true, "https://picsum.photos/id/240/200"));
-        userList.add(new User("Paul Addams", 70, false, "https://picsum.photos/id/241/200"));
-        return userList;
+    private static class ProductsViewHolder extends RecyclerView.ViewHolder{
+        private final TextView list_school;
+        private final TextView list_udise;
+        private final TextView list_user;
+
+        public ProductsViewHolder(@NonNull View itemView) {
+            super(itemView);
+            list_school=itemView.findViewById(R.id.list_school);
+            list_udise=itemView.findViewById(R.id.list_udise);
+            list_user=itemView.findViewById(R.id.list_user);
+
+
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        adapter.startListening();
     }
 }
