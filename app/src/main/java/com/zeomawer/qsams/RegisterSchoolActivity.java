@@ -73,7 +73,7 @@ public class RegisterSchoolActivity extends AppCompatActivity {
             String school = mSchool.getText().toString().trim();
 
             FirebaseUser user = fAuth.getCurrentUser();
-            DocumentReference df = fStore.collection("Users").document(user.getUid());
+            DocumentReference df = fStore.collection("Schools").document(user.getUid());
             Map<String, Object> userInfo = new HashMap<>();
             userInfo.put("Udise", udise);
             userInfo.put("School", school);

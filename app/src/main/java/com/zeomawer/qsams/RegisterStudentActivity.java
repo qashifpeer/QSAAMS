@@ -31,11 +31,11 @@ import java.util.Map;
 
 public class RegisterStudentActivity extends AppCompatActivity {
     private static final String TAG=RegisterStudentActivity.class.getSimpleName();
-    private EditText adNumD, nameD, fatherNameD, motherNameD, residenceD, uidD,dobD,phoneD,admDateD;
-    private TextInputLayout admField, nameField, fNameField, mNameField, resField, uidField,dobField,phoneField;
+    private EditText rollNumD,adNumD, nameD, fatherNameD, motherNameD, residenceD, uidD,dobD,phoneD,admDateD;
+    private TextInputLayout rollNumField,admField, nameField, fNameField, mNameField, resField, uidField,dobField,phoneField;
     private Button saveBtn;
-    FirebaseAuth fAuth;
-    FirebaseFirestore fStore;
+    private FirebaseAuth fAuth;
+     private FirebaseFirestore fStore;
     private Spinner classSpinner;
     private Spinner c1;
     private String gender="";
@@ -149,16 +149,8 @@ public class RegisterStudentActivity extends AppCompatActivity {
     private void initializeWidgets() {
 
 
-        /*admField = findViewById(R.id.adNumField);
-        nameField = findViewById(R.id.nameField);
-        fNameField = findViewById(R.id.fNameField);
-        mNameField = findViewById(R.id.mNameField);
-        resField = findViewById(R.id.resField);
-        uidField = findViewById(R.id.uidField);
-        dobField = findViewById(R.id.dobField);
-        phoneField= findViewById(R.id.phoneField);
-*/
 
+        rollNumD=findViewById(R.id.rollNum);
         adNumD = findViewById(R.id.adNum);
         nameD = findViewById(R.id.sName);
         fatherNameD = findViewById(R.id.fatherName);
@@ -208,7 +200,11 @@ public class RegisterStudentActivity extends AppCompatActivity {
         }
 
         //Validation Starts Here
-
+        //Roll Number
+        if(TextUtils.isEmpty(rollNumD.getText().toString().trim())){
+            Toast.makeText(RegisterStudentActivity.this, "Please Enter Roll Number", Toast.LENGTH_SHORT).show();
+            return;
+        }
         //Adm Number
         if(TextUtils.isEmpty(adNumD.getText().toString().trim())){
             Toast.makeText(RegisterStudentActivity.this, "Please Enter Admission Number", Toast.LENGTH_SHORT).show();
@@ -284,9 +280,10 @@ public class RegisterStudentActivity extends AppCompatActivity {
             Toast.makeText(this, "Data Submitted Successfully", Toast.LENGTH_SHORT).show();
         //Saving Data to Firebase
             FirebaseUser user = fAuth.getCurrentUser();
-            DocumentReference df = fStore.collection("Users").document(user.getUid())
+            DocumentReference df = fStore.collection("Schools").document(user.getUid())
                     .collection("Students").document(adNumD.getText().toString());
             Map<String, Object> userInfo = new HashMap<>();
+            userInfo.put("RollNumber", rollNumD.getText().toString());
             userInfo.put("name", nameD.getText().toString());
             userInfo.put("fathername", fatherNameD.getText().toString());
             userInfo.put("mothername", motherNameD.getText().toString());
@@ -295,11 +292,12 @@ public class RegisterStudentActivity extends AppCompatActivity {
             userInfo.put("uid", uidD.getText().toString());
             userInfo.put("dob", dobD.getText().toString());
             userInfo.put("phone", phoneD.getText().toString());
-            userInfo.put("class", c1.getSelectedItem().toString());
+            userInfo.put("className", c1.getSelectedItem().toString());
             userInfo.put("gender", gender);
+            userInfo.put("AdNum", adNumD.getText().toString());
 
             df.set(userInfo);
-
+            rollNumD.setText("");
             adNumD.setText("");
             nameD.setText("");
             fatherNameD.setText("");
@@ -328,6 +326,7 @@ public class RegisterStudentActivity extends AppCompatActivity {
 
 
     public void btnClear(View view) {
+        rollNumD.setText("");
         adNumD.setText("");
         nameD.setText("");
         fatherNameD.setText("");

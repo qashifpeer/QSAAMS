@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void checkUserAccess(String uid) {
 
-        DocumentReference df=fStore.collection("Users").document(uid);
+        DocumentReference df=fStore.collection("Schools").document(uid);
 
         //Extract Data from the document
         df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -119,7 +119,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if (documentSnapshot.getString("isUser")!= null){
                     //teacher user
-                    startActivity(new Intent(getApplicationContext(),ViewStudentActivity.class));
+                    startActivity(new Intent(getApplicationContext(),UserActivity.class));
                     finish();
                 }
             }

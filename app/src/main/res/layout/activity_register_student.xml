@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" android:layout_height="fill_parent"
+      >
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -19,6 +22,59 @@
     android:padding="10dp">
 
 
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="7dp">
+
+
+
+            <Spinner
+                android:id="@+id/classSpinner"
+                style="@style/Widget.AppCompat.Spinner"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/dropdownListPreferredItemHeight"
+
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/spinner_bg"
+                android:dropDownWidth="300dp"
+                android:dropDownVerticalOffset="?attr/dropdownListPreferredItemHeight"
+
+                android:popupBackground="@android:color/white"
+                android:popupElevation="3dp"
+                android:stateListAnimator="@drawable/spinner_sla"
+                android:entries="@array/items_class"
+                android:textSize="20sp"/>
+
+
+        </RelativeLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/rollNumField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:errorTextColor="@color/error_color2">
+
+        <EditText
+            android:id="@+id/rollNum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter Roll Number"
+            android:inputType="number"
+            android:textAllCaps="true"
+            android:textColor="@color/purple_700"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/adNumField"
         android:layout_width="match_parent"
@@ -26,7 +82,6 @@
         android:layout_marginTop="7dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
-
         app:errorTextColor="@color/error_color2">
 
         <EditText
@@ -57,7 +112,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Student Name"
-            android:inputType="text"
+            android:inputType="textCapSentences"
             android:textSize="18sp"
             android:textAllCaps="true"
             android:textStyle="bold"/>
@@ -80,7 +135,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Father's Name"
-            android:inputType="text"
+            android:inputType="textCapSentences"
             android:textSize="18sp"
             android:textAllCaps="true"
             android:textStyle="bold"
@@ -102,7 +157,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Mother's Name"
-            android:inputType="text"
+            android:inputType="textCapSentences"
             android:textSize="18sp"
             android:textAllCaps="true"
             android:textStyle="bold"
@@ -124,7 +179,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Residence"
-            android:inputType="text"
+            android:inputType="textCapSentences"
             android:textSize="18sp"
             android:textAllCaps="true"
             android:textStyle="bold"
@@ -250,16 +305,15 @@
          android:layout_width="wrap_content"
          android:layout_weight="1"
          android:layout_height="match_parent"
-         android:text="Class"
+         android:text="Strike OFF"
          android:textAlignment="center"
-         android:gravity="center_horizontal"
-         android:layout_marginTop="5dp"
+         android:gravity="center"
          android:textSize="18sp"
-         android:textColor="@color/black"
+        android:textColor="#E3081A"
          android:textStyle="bold"/>
 
-     <Spinner
-         android:id="@+id/classSpinner"
+     <CheckBox
+         android:id="@+id/chkStrike"
          android:layout_width="wrap_content"
          android:layout_height="match_parent"
          android:layout_marginTop="5dp"
@@ -329,3 +383,4 @@
 
 </LinearLayout>
 </LinearLayout>
+</ScrollView>

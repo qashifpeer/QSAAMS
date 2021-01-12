@@ -20,9 +20,21 @@
         android:text="Go to Student Register"
         android:id="@+id/goTo"/>
     <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/btnViewStudent"
+        android:text="View Student"/>
+    <Button
+        android:id="@+id/btnClass"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Class Ragister" />
+    <Button
         android:id="@+id/btnLogoutUser"
         android:layout_marginTop="70dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Logout" />
 </LinearLayout>

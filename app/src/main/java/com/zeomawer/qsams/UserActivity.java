@@ -16,6 +16,8 @@ public class UserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user);
         Button logout=findViewById(R.id.btnLogoutUser);
         Button g1=findViewById(R.id.goTo);
+        Button c1=findViewById(R.id.btnClass);
+        Button v1=findViewById(R.id.btnViewStudent);
 
 
         g1.setOnClickListener(new View.OnClickListener() {
@@ -24,6 +26,23 @@ public class UserActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), RegisterStudentActivity.class));
             }
         });
+
+        c1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ClassActivity.class));
+            }
+        });
+
+        v1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ViewStudentActivity.class));
+            }
+        });
+
+
+
 
 
 
@@ -36,5 +55,7 @@ public class UserActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
     }
 }
