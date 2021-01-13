@@ -35,7 +35,7 @@ public class RegisterStudentActivity extends AppCompatActivity {
     private TextInputLayout rollNumField,admField, nameField, fNameField, mNameField, resField, uidField,dobField,phoneField;
     private Button saveBtn;
     private FirebaseAuth fAuth;
-     private FirebaseFirestore fStore;
+    private FirebaseFirestore fStore;
     private Spinner classSpinner;
     private Spinner c1;
     private String gender="";
@@ -272,7 +272,7 @@ public class RegisterStudentActivity extends AppCompatActivity {
             Toast.makeText(RegisterStudentActivity.this, "Please Select Gender", Toast.LENGTH_SHORT).show();
             return;
         }
-            //Validation Ends:
+            //Validation Ends:  adNumD.getText().toString()
 
         if (isValid) {
 
@@ -280,8 +280,10 @@ public class RegisterStudentActivity extends AppCompatActivity {
             Toast.makeText(this, "Data Submitted Successfully", Toast.LENGTH_SHORT).show();
         //Saving Data to Firebase
             FirebaseUser user = fAuth.getCurrentUser();
+
             DocumentReference df = fStore.collection("Schools").document(user.getUid())
                     .collection("Students").document(adNumD.getText().toString());
+
             Map<String, Object> userInfo = new HashMap<>();
             userInfo.put("RollNumber", rollNumD.getText().toString());
             userInfo.put("name", nameD.getText().toString());
@@ -295,6 +297,7 @@ public class RegisterStudentActivity extends AppCompatActivity {
             userInfo.put("className", c1.getSelectedItem().toString());
             userInfo.put("gender", gender);
             userInfo.put("AdNum", adNumD.getText().toString());
+
 
             df.set(userInfo);
             rollNumD.setText("");
