@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ import java.util.Map;
 
 public class StudentDetails extends AppCompatActivity {
     private EditText t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11;
+    private Spinner s1;
     private Button b1;
     private FloatingActionButton f1,f2;
     private FirebaseAuth fAuth;
@@ -161,6 +163,7 @@ public class StudentDetails extends AppCompatActivity {
         //userInfo.put("className",t9.getText().toString());
         userInfo.put("dob",t10.getText().toString());
         userInfo.put("RollNumber",t11.getText().toString());
+        userInfo.put("className",s1.getSelectedItem().toString());
 
 
         df.update(userInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -195,6 +198,8 @@ public class StudentDetails extends AppCompatActivity {
         t9.setText(getIntent().getStringExtra("className").toString());
         t10.setText(getIntent().getStringExtra("dob").toString());
         t11.setText(getIntent().getStringExtra("RollNumber").toString());
+        //s1.setSelected(Boolean.parseBoolean(getIntent().getStringExtra("className")));
+
 
 
 
@@ -203,7 +208,9 @@ public class StudentDetails extends AppCompatActivity {
 
     private void editData(View view) {
         f2.setVisibility(View.VISIBLE);
+        s1.setVisibility(View.VISIBLE);
         f1.setVisibility(View.INVISIBLE);
+        t9.setVisibility(View.INVISIBLE);
 
 
         t1.setFocusable(true);
@@ -246,6 +253,8 @@ public class StudentDetails extends AppCompatActivity {
 
 
 
+
+
     }
 
     private void initializeListeners() {
@@ -264,6 +273,7 @@ public class StudentDetails extends AppCompatActivity {
         t9=findViewById(R.id.txtClass);
         t10=findViewById(R.id.txtDob);
         t11=findViewById(R.id.txtRollN);
+        s1=findViewById(R.id.spinnerClass);
 
         f1=findViewById(R.id.faEdit);
         f2=findViewById(R.id.faUpdate);

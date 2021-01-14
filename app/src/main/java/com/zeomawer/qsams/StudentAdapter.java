@@ -47,10 +47,11 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.studentV
                 intent.putExtra("mothername",datalist.get(position).getMothername());
                 intent.putExtra("fathername",datalist.get(position).getFathername());
                 intent.putExtra("dob",datalist.get(position).getDob());
-                intent.putExtra("className",datalist.get(position).getClassName());
                 intent.putExtra("admdate",datalist.get(position).getAdmdate());
                 intent.putExtra("RollNumber",datalist.get(position).getRollNumber());
                 intent.putExtra("AdNum",datalist.get(position).getAdNum());
+
+                intent.putExtra("className",datalist.get(position).getClassName());
 
 
 

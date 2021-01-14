@@ -15,6 +15,9 @@
     <color name="error_color2">#01D155</color>
     <color name="control_activated">#0690f0</color>
       <color name="my_spinner_text_color">@color/purple_700</color>
+    <color name="text_header">#4408CA</color>
+    <color name="text_normal">#8308A5</color>
+
     <color name="control_normal">#00C853</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#FF6C02</color>
 </resources>
