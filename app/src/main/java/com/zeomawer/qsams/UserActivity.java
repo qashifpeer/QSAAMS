@@ -18,6 +18,7 @@ public class UserActivity extends AppCompatActivity {
         Button g1=findViewById(R.id.goTo);
         Button c1=findViewById(R.id.btnClass);
         Button v1=findViewById(R.id.btnViewStudent);
+        Button v2=findViewById(R.id.btnClassWise);
 
 
         g1.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +39,13 @@ public class UserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),ViewStudentActivity.class));
+            }
+        });
+        v2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ViewClasswise.class));
+
             }
         });
 

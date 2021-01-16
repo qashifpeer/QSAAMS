@@ -26,6 +26,12 @@
         android:id="@+id/btnViewStudent"
         android:text="View Student"/>
     <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/btnClassWise"
+        android:text="View Class Wise"/>
+    <Button
         android:id="@+id/btnClass"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"

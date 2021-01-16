@@ -4,20 +4,29 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
-public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.studentViewHolder>
+public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.studentViewHolder>implements Filterable
 {
 
     ArrayList<ModelViewStudent> datalist;
+    ArrayList<ModelViewStudent> backup;
 
     public StudentAdapter(ArrayList<ModelViewStudent> datalist) {
+
         this.datalist = datalist;
+        backup=new ArrayList<>(datalist);
+        //backup.addAll(datalist);
+
     }
 
     @NonNull
@@ -73,6 +82,46 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.studentV
     public int getItemCount() {
         return datalist.size();
     }
+
+    @Override
+    public Filter getFilter() {
+
+        return filter;
+    }
+    Filter filter=new Filter() {
+        @Override
+        //background thread
+        protected FilterResults performFiltering(CharSequence keyword)
+        {
+           ArrayList<ModelViewStudent>filtereddata=new ArrayList<>();
+           if(keyword.toString().isEmpty())
+               filtereddata.addAll(backup);
+           else
+               {
+               for(ModelViewStudent obj:backup)
+               {
+                   if(obj.getName().toLowerCase().contains(keyword.toString().toLowerCase())){
+                       filtereddata.add(obj);
+
+                   }
+
+               }
+           }
+                FilterResults results=new FilterResults();
+           results.values=filtereddata;
+           return results;
+        }
+
+        @Override
+        //manin thread
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            datalist.clear();
+            datalist.addAll((Collection<? extends ModelViewStudent>) results.values);
+            //datalist.addAll((ArrayList<ModelViewStudent>) results.values);
+            notifyDataSetChanged();
+
+        }
+    };
 
     class studentViewHolder extends RecyclerView.ViewHolder{
         TextView t1,t2,t3;
