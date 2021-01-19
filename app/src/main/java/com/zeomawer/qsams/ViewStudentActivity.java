@@ -67,8 +67,9 @@ public class ViewStudentActivity extends AppCompatActivity {
 
                             ModelViewStudent obj=d.toObject(ModelViewStudent.class);
                             datalist.add(obj);
+                           // adapter = new StudentAdapter(datalist);
                         }
-                        //Update Adapter
+
 
                         adapter.notifyDataSetChanged();
                     }
@@ -92,10 +93,11 @@ public class ViewStudentActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 adapter.getFilter().filter(newText);
+                Log.d(TAG, newText);
                 return false;
             }
         });
 
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 }

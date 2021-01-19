@@ -1,6 +1,7 @@
 package com.zeomawer.qsams;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import java.util.List;
 
 public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.studentViewHolder>implements Filterable
 {
+    private static final String TAG = StudentAdapter.class.getSimpleName();
 
     ArrayList<ModelViewStudent> datalist;
     ArrayList<ModelViewStudent> backup;
@@ -94,7 +96,10 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.studentV
         protected FilterResults performFiltering(CharSequence keyword)
         {
            ArrayList<ModelViewStudent>filtereddata=new ArrayList<>();
-           if(keyword.toString().isEmpty())
+
+           Log.d(TAG, keyword.toString());
+
+            if(keyword.toString().isEmpty())
                filtereddata.addAll(backup);
            else
                {
@@ -108,7 +113,10 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.studentV
                }
            }
                 FilterResults results=new FilterResults();
+            Log.d(TAG, results.toString());
            results.values=filtereddata;
+
+            results.count = filtereddata.size();
            return results;
         }
 
@@ -116,14 +124,14 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.studentV
         //manin thread
         protected void publishResults(CharSequence constraint, FilterResults results) {
             datalist.clear();
-            datalist.addAll((Collection<? extends ModelViewStudent>) results.values);
+            datalist.addAll((List) results.values);
             //datalist.addAll((ArrayList<ModelViewStudent>) results.values);
             notifyDataSetChanged();
 
         }
     };
 
-    class studentViewHolder extends RecyclerView.ViewHolder{
+    static class studentViewHolder extends RecyclerView.ViewHolder{
         TextView t1,t2,t3;
 
         public studentViewHolder(@NonNull View itemView) {
