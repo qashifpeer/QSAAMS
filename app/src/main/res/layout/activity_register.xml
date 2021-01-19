@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="30dp"
     android:background="@color/background"
-    tools:context=".RegisterActivity">
+    tools:context=".RegisterSchoolActivity">
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:focusable="true"
         android:focusableInTouchMode="true"
-
+        android:id="@+id/fieldUdise"
         android:layout_marginTop="7dp"
         >
 
@@ -29,30 +29,13 @@
             android:textSize="22sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
+
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusable="true"
         android:focusableInTouchMode="true"
-
-        android:layout_marginTop="7dp"
-        >
-
-        <EditText
-            android:id="@+id/registerEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Enter Email"
-            android:inputType="textEmailAddress"
-            android:textSize="22sp" />
-    </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-
+        android:id="@+id/fieldSchool"
         android:layout_marginTop="7dp"
         >
 
@@ -65,44 +48,8 @@
             android:inputType="text"
             android:textSize="22sp" />
     </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
 
-        android:layout_marginTop="7dp"
-        >
 
-        <EditText
-            android:id="@+id/registerPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter Password"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:textSize="22sp"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-
-        android:layout_marginTop="7dp"
-        >
-
-        <EditText
-            android:id="@+id/registerConfirmPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Confirm Password"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:textSize="22sp"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
 
 
 
@@ -118,12 +65,12 @@
 
     </Button>
     <Button
-        android:id="@+id/goToLogin"
+        android:id="@+id/btnClear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:background="@drawable/btn_rounded"
-        android:text="Login"
+        android:text="Clear"
         android:textSize="20dp"
         app:backgroundTint="@color/colorAccent">
 
