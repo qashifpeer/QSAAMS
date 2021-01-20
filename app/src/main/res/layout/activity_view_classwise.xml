@@ -23,12 +23,9 @@
         android:stateListAnimator="@drawable/spinner_sla"
         android:entries="@array/items_class"
         android:textSize="20sp"
+        android:padding="15dp"
         />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnTry"
-        android:text="Try Try"/>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerviewCW"

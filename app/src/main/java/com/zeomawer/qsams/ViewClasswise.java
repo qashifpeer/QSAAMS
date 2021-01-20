@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -15,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,7 +28,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewClasswise extends AppCompatActivity {
+public class ViewClasswise extends AppCompatActivity implements ClasswiseAdapter.OnNoteListener {
 
     private static final String TAG = ViewClasswise.class.getSimpleName();
 
@@ -47,7 +49,7 @@ public class ViewClasswise extends AppCompatActivity {
 
         recyclerViewCW.setLayoutManager(new LinearLayoutManager(this));
         classlist = new ArrayList<>();
-        classwiseAdapter = new ClasswiseAdapter(classlist);
+        classwiseAdapter = new ClasswiseAdapter(classlist,this);
         recyclerViewCW.setAdapter(classwiseAdapter);
         s1 = findViewById(R.id.spinnerSearch);
 
@@ -101,4 +103,11 @@ public class ViewClasswise extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onNoteClick(int position) {
+        Log.d(TAG, "onNoteClick: Clicked"+position);
+
+        classlist.get(position);
+        
+    }
 }
